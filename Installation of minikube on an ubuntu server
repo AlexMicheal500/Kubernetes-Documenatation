@@ -1,0 +1,49 @@
+Use the minikube official documentation: https://minikube.sigs.k8s.io/docs/start/
+You can use the following commands:
+1. 
+Install minikube:
+sudo apt update
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+minikube start
+
+Output: 
+😄  minikube v1.29.0 on Ubuntu 22.04 (xen/amd64)
+👎  Unable to pick a default driver. Here is what was considered, in preference order:
+    ▪ docker: Not healthy: "docker version --format {{.Server.Os}}-{{.Server.Version}}:{{.Server.Platform.Name}}" exit status 1: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get "http://%2Fvar%2Frun%2Fdocker.sock/v1.24/version": dial unix /var/run/docker.sock: connect: permission denied
+    ▪ docker: Suggestion: Add your user to the 'docker' group: 'sudo usermod -aG docker $USER && newgrp docker' <https://docs.docker.com/engine/install/linux-postinstall/>
+💡  Alternatively you could install one of these drivers:
+    ▪ kvm2: Not installed: exec: "virsh": executable file not found in $PATH
+    ▪ podman: Not installed: exec: "podman": executable file not found in $PATH
+    ▪ qemu2: Not installed: exec: "qemu-system-x86_64": executable file not found in $PATH
+    ▪ vmware: Not installed: exec: "docker-machine-driver-vmware": executable file not found in $PATH
+    ▪ virtualbox: Not installed: unable to find VBoxManage in $PATH
+
+❌  Exiting due to DRV_NOT_HEALTHY: Found driver(s) but none were healthy. See above for suggestions how to fix installed drivers.
+
+2.
+Install docker and and add user to "docker" group:
+sudo apt install docker.io
+sudo usermod -aG docker $USER && newgrp docker
+minikube start
+
+Output:
+😄  minikube v1.29.0 on Ubuntu 22.04 (xen/amd64)
+✨  Automatically selected the docker driver. Other choices: ssh, none
+📌  Using Docker driver with root privileges
+👍  Starting control plane node minikube in cluster minikube
+🚜  Pulling base image ...
+💾  Downloading Kubernetes v1.26.1 preload ...
+    > preloaded-images-k8s-v18-v1...:  397.05 MiB / 397.05 MiB  100.00% 57.36 M
+    > gcr.io/k8s-minikube/kicbase...:  407.18 MiB / 407.19 MiB  100.00% 49.48 M
+🔥  Creating docker container (CPUs=2, Memory=2200MB) ...
+🐳  Preparing Kubernetes v1.26.1 on Docker 20.10.23 ...
+    ▪ Generating certificates and keys ...
+    ▪ Booting up control plane ...
+    ▪ Configuring RBAC rules ...
+🔗  Configuring bridge CNI (Container Networking Interface) ...
+    ▪ Using image gcr.io/k8s-minikube/storage-provisioner:v5
+🔎  Verifying Kubernetes components...
+🌟  Enabled addons: storage-provisioner, default-storageclass
+💡  kubectl not found. If you need it, try: 'minikube kubectl -- get pods -A'
+🏄  Done! kubectl is now configured to use "minikube" cluster and "default" namespace by default
